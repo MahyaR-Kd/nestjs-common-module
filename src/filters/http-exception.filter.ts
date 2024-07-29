@@ -4,13 +4,11 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
-  Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ErrorResponse } from '../dto';
 import { ConfigService } from '@nestjs/config';
-import { SharedMessages } from '../enums/shared-messages.enum';
-import { KafkaContext } from '@nestjs/microservices';
+import { SharedMessages } from '../enums';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -24,20 +22,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
       error: string | string[];
       details: any;
     };
-    const logger = new Logger('OrderKafkaController', { timestamp: true });
-
-    if (response instanceof KafkaContext) {
-      logger.error(result);
-
-      // TODO: add sentry for manage kafka exceptions
-    }
     try {
       if (status === HttpStatus.UNPROCESSABLE_ENTITY) {
         return response.status(status).json(result);
       } else if (status === HttpStatus.BAD_REQUEST) {
-        // if (result instanceof SharedMessages) {
-        //
-        // }
         return response
           .status(status)
           .json(
