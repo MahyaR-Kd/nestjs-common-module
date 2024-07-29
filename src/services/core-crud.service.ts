@@ -11,17 +11,17 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ParentEntity } from '../entities/parent.entity';
+import { ParentEntity } from '../entities';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { paginate, Paginated } from 'nestjs-paginate';
 import { PaginateConfig } from 'nestjs-paginate/lib/paginate';
 import { ObjectId } from 'typeorm/driver/mongodb/typings';
-import { PaginationQueryCustom } from '../interfaces/pagination-query';
-import { SharedMessages } from '../enums/shared-messages.enum';
+import { PaginationQueryCustomDto } from '../dto';
+import { SharedMessages } from '../enums';
 import { InsertResult } from 'typeorm/query-builder/result/InsertResult';
-import { CoreCrudServiceOption } from '../interfaces';
+import { CoreCrudServiceOptionInterface } from '../interfaces';
 import { UpsertOptions } from 'typeorm/repository/UpsertOptions';
-import { MessageFormatter } from '../helpers/message-formatter.helper';
+import { MessageFormatter } from '../helpers';
 
 @Injectable()
 export abstract class CoreCrudService<
@@ -40,7 +40,7 @@ export abstract class CoreCrudService<
 
   async create(
     createDto: CreateDto,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<T> {
     const relationEntityName = Object.keys(createDto).filter(
       (item) => this.relationsPath.includes(item) && createDto[item],
@@ -62,9 +62,9 @@ export abstract class CoreCrudService<
   }
 
   async findAllWithPagination(
-    query: PaginationQueryCustom,
+    query: PaginationQueryCustomDto,
     paginateConfig: PaginateConfig<T>,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<Paginated<T>> {
     return await paginate<T>(query, this.repository, {
       ...paginateConfig,
@@ -74,7 +74,7 @@ export abstract class CoreCrudService<
 
   async findAll(
     query: FindManyOptions<T>,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<T[]> {
     let result: T[] | PromiseLike<T[]>;
     if (!options?.entityManager)
@@ -95,7 +95,7 @@ export abstract class CoreCrudService<
 
   async findOneById(
     id: number,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<T> {
     let result: T;
 
@@ -122,7 +122,7 @@ export abstract class CoreCrudService<
 
   async findOne(
     query: FindManyOptions<T>,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<T> {
     const whereQuery = this.validateWhereQuery(query.where);
     if (!whereQuery) {
@@ -151,7 +151,7 @@ export abstract class CoreCrudService<
 
   async isExists(
     query: FindManyOptions<T>,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<boolean> {
     // const whereQuery = this.validateWhereQuery(query.where);
     // if (!whereQuery) {
@@ -177,7 +177,7 @@ export abstract class CoreCrudService<
 
   async count(
     query: FindManyOptions<T>,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<number> {
     const whereQuery = this.validateWhereQuery(query.where);
     if (!whereQuery) {
@@ -204,7 +204,7 @@ export abstract class CoreCrudService<
   async upsert(
     upsertDto: QueryDeepPartialEntity<T>,
     upsertOptions: UpsertOptions<T>,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<InsertResult> {
     try {
       let conflictPaths: string[] = [];
@@ -258,7 +258,7 @@ export abstract class CoreCrudService<
   async update(
     id: number,
     updateDto: Partial<UpdateDto> | DeepPartial<T> | QueryDeepPartialEntity<T>,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<UpdateResult> {
     if (!options?.entityManager) {
       const fetchedItem = await this.repository.findOne({
@@ -337,7 +337,7 @@ export abstract class CoreCrudService<
       | ObjectId
       | ObjectId[]
       | FindOptionsWhere<T>,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<UpdateResult> {
     if (options?.entityManager) {
       return await options?.entityManager.softDelete(
@@ -351,7 +351,7 @@ export abstract class CoreCrudService<
 
   async softDeleteById(
     id: number,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<UpdateResult> {
     if (options?.entityManager) {
       return await options?.entityManager.softDelete(
@@ -374,7 +374,7 @@ export abstract class CoreCrudService<
       | ObjectId
       | ObjectId[]
       | FindOptionsWhere<T>,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<DeleteResult> {
     if (options?.entityManager) {
       return await options?.entityManager.delete(
@@ -388,7 +388,7 @@ export abstract class CoreCrudService<
 
   async deleteById(
     id: number,
-    options?: CoreCrudServiceOption<T>,
+    options?: CoreCrudServiceOptionInterface<T>,
   ): Promise<DeleteResult> {
     if (options?.entityManager) {
       return await options?.entityManager.delete(this.repository.target, id);
