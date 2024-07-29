@@ -5,4 +5,3 @@ export * from './get-main-url-path.util';
 export * from './multi-inheritance.util';
 export * from './parse-json-string.util';
 export * from './string-to-boolean.util';
-export * from './typeorm-filter.util';

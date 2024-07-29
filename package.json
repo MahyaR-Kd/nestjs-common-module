@@ -24,6 +24,7 @@
     "build:docs": "npx compodoc -p tsconfig.build.json -d docs -o -s --theme material"
   },
   "dependencies": {
+    "@nestjs/axios": "^3.0.2",
     "@nestjs/cache-manager": "^2.2.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.2",
@@ -32,6 +33,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.3.1",
     "@nestjs/typeorm": "^10.0.2",
+    "@sentry/minimal": "^6.19.7",
     "cache-manager": "^5.5.3",
     "cache-manager-redis-store": "^3.0.1",
     "class-transformer": "^0.5.1",
@@ -40,6 +42,7 @@
     "kafkajs": "^2.2.4",
     "nestjs-paginate": "^8.6.2",
     "npm": "^10.8.1",
+    "papaparse": "^5.4.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20"

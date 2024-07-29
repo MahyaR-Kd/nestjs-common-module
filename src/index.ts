@@ -11,7 +11,6 @@ export * from './helpers';
 export * from './interceptors';
 export * from './interfaces';
 export * from './lib';
-export * from './pipes';
 export * from './proxies';
 export * from './services';
 export * from './strategies';
