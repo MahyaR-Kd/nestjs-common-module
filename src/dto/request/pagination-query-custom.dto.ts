@@ -1,9 +1,9 @@
 import { IsNumber, IsOptional } from 'class-validator';
-import { IsString } from '../decorators/validations/default';
+import { IsString } from '../../decorators';
 import { Transform } from 'class-transformer';
 import { PaginateQuery } from 'nestjs-paginate';
 
-export class PaginationQueryCustom implements PaginateQuery {
+export class PaginationQueryCustomDto implements PaginateQuery {
   @IsNumber()
   @IsOptional()
   @Transform(({ value }) => (value ? parseInt(value, 10) : undefined))

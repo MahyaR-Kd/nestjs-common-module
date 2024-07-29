@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { SharedMessages } from '../../enums/shared-messages.enum';
+import { SuccessResponseInterface } from '../../interfaces/success-response.interface';
 
 export class BaseSuccessResponse<type> {
   @ApiProperty({ type: Object })
@@ -16,12 +17,12 @@ export class BaseSuccessResponse<type> {
 }
 
 export class SuccessResponse<type> extends BaseSuccessResponse<type> {
-  constructor(
-    data: type,
-    message: string = null,
+  constructor({
+    data,
+    message = null,
     statusCode = 200,
     metadata = null,
-  ) {
+  }: SuccessResponseInterface<type>) {
     super();
 
     this.data = data;

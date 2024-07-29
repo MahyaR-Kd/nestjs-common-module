@@ -5,6 +5,8 @@ export enum SharedMessages {
   RECURSIVE_CHILD = 'Some children IDs are invalid, the parent product can not be used in children, it is recursive.',
   SUCCESSFUL = 'Operation completed successfully.',
   IS_UNiQUE = 'Field must be unique.',
+  FIELD_REQUIRE = 'Field cannot be empty.',
+  ALREADY_EXISTS = 'Operation already exists',
 
   // Create (POST) specific errors
   CREATE_FAILED = 'Failed to create: {0}.',
@@ -37,4 +39,7 @@ export enum SharedMessages {
   // Authentication and Authorization errors
   UNAUTHORIZED = 'Authorization is required to access this {0}.',
   FORBIDDEN = 'Access to this {0} is forbidden.',
+
+  FILTER_OPERATION_NOT_ACCEPTABLE = 'filter operator not acceptable',
+  FILTER_VALIDATION_FAILED = 'filter validation failed {0}.',
 }
