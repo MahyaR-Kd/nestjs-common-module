@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { Paginate, Paginated } from 'nestjs-paginate';
 import { PaginateConfig } from 'nestjs-paginate/lib/paginate';
-import { PaginationQueryCustom } from '../interface/pagination-query';
+import { PaginationQueryCustom } from '../interfaces/pagination-query';
 import { SharedMessages } from '../enums/shared-messages.enum';
 import { SuccessResponse } from '../dto';
 import { BaseResponseWithActionDates } from '../dto';

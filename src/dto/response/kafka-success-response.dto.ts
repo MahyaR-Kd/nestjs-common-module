@@ -1,5 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
-import { KafkaSuccessResponseInterface } from '../../interface/kafka-success-response.interfase';
+import { KafkaSuccessResponseInterface } from '../../interfaces/kafka-success-response.interfase';
 
 export class BaseKafkaEventDto<type> {
   @IsString()
