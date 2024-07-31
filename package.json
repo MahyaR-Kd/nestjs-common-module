@@ -1,6 +1,6 @@
 {
   "name": "@mahyar-kd/nestjs-common-module",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "author": {
     "name": "Mahyar-Kd"
@@ -40,6 +40,7 @@
     "class-validator": "^0.14.1",
     "express-basic-auth": "^1.2.1",
     "kafkajs": "^2.2.4",
+    "nestjs-i18n": "^10.4.5",
     "nestjs-paginate": "^8.6.2",
     "npm": "^10.8.1",
     "papaparse": "^5.4.1",
