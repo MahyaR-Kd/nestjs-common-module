@@ -11,7 +11,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ParentEntity } from '../entities';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { paginate, Paginated } from 'nestjs-paginate';
 import { PaginateConfig } from 'nestjs-paginate/lib/paginate';
@@ -22,10 +21,11 @@ import { InsertResult } from 'typeorm/query-builder/result/InsertResult';
 import { CoreCrudServiceOptionInterface } from '../interfaces';
 import { UpsertOptions } from 'typeorm/repository/UpsertOptions';
 import { MessageFormatter } from '../helpers';
+import { BaseModelEntity } from '../entities';
 
 @Injectable()
 export abstract class CoreCrudService<
-  T extends ParentEntity,
+  T extends BaseModelEntity,
   CreateDto,
   UpdateDto,
 > {
