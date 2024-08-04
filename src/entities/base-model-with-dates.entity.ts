@@ -3,11 +3,11 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   Column,
-  BaseEntity,
 } from 'typeorm';
-import { Order } from '../decorators/entity-order.decorator';
+import {Order} from '../decorators/entity-order.decorator';
+import {BaseModelEntity} from "./base-model.entity";
 
-export class ActionDatesEntity extends BaseEntity {
+export class BaseModelWithDatesEntity extends BaseModelEntity {
   @Order(9999)
   @CreateDateColumn()
   createdAt: Date;
@@ -21,10 +21,6 @@ export class ActionDatesEntity extends BaseEntity {
   deletedAt: Date;
 
   @Order(9999)
-  @Column({ nullable: true })
-  createdBy?: string;
-
-  @Order(9999)
-  @Column({ nullable: true })
-  updatedBy?: string;
+  @Column({ type: 'json', nullable: true })
+  metadata?: any;
 }
