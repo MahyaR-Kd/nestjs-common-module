@@ -11,10 +11,10 @@ import { SuccessResponse } from '../dto';
 import { BaseResponseWithActionDates } from '../dto';
 import { IdDto } from '../dto';
 import { CoreCrudService } from '../services';
-import { ParentEntity } from '../entities';
+import { BaseModelEntity } from '../entities';
 
 export class CoreCrudController<
-  T extends ParentEntity,
+  T extends BaseModelEntity,
   CreateDto,
   UpdateDto,
   ResponseDto extends BaseResponseWithActionDates,
